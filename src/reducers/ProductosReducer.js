@@ -1,4 +1,11 @@
-import { OBTENER_ERROR, OBTENER_EXITO, OBTENER_PRODUCTOS } from "../types";
+import {
+  OBTENER_ERROR,
+  OBTENER_EXITO,
+  OBTENER_PRODUCTOS,
+  GUARDAR_PRODUCTO,
+  GUARDAR_EXITO,
+  GUARDAR_ERROR,
+} from "../types";
 
 const initialState = {
   productos: [],
@@ -8,6 +15,7 @@ const initialState = {
 
 export default function (state = initialState, action) {
   switch (action.type) {
+    case GUARDAR_PRODUCTO:  
     case OBTENER_PRODUCTOS:
       return {
         ...state,
@@ -20,12 +28,20 @@ export default function (state = initialState, action) {
         loading: false,
         error: false,
       };
+    case GUARDAR_ERROR:
     case OBTENER_ERROR:
       return {
         ...state,
         loading: false,
         error: true,
       };
+      case GUARDAR_EXITO:
+        return{
+          ...state,
+          productos: [action.payload, ...state],
+          loading: false,
+          error: false,
+        }
     default:
       return state;
   }
