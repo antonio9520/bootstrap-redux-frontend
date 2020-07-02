@@ -45,6 +45,7 @@ const Listado = () => {
               ))}
             </tbody>
           </table>
+         
         </div>
       </div>
     </div>

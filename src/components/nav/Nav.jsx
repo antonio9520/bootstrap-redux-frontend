@@ -1,5 +1,6 @@
 import React from "react";
 import "./Nav.css";
+import {Link} from "react-router-dom"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 const Nav = (props) => {
@@ -22,9 +23,11 @@ const Nav = (props) => {
           </button>
         </div>
         <div>
+          <Link to="/new-product">
           <button className="btn btn-outline-success my-2 my-sm-0 ">
             Nuevo Producto
           </button>
+          </Link>
         </div>
       </div>
     </nav>
