@@ -1,0 +1,58 @@
+.cont-sidebar {
+  width: 20%;
+  height: 100vh;
+  position: fixed;
+  transition: 0.5s all ease-in-out;
+  box-shadow: 1px 0px 6px 0px rgba(0,0,0,0.75);
+  -webkit-box-shadow: 1px 0px 6px 0px rgba(0,0,0,0.75);
+  -moz-box-shadow: 1px 0px 6px 0px rgba(0,0,0,0.75);
+}
+
+.cont-sidebar-active {
+  width: 5%;
+  height: 100vh;
+  position: fixed;
+  transition: 0.5s all ease-in-out;
+  box-shadow: 1px 0px 6px 0px rgba(0,0,0,0.75);
+  -webkit-box-shadow: 1px 0px 6px 0px rgba(0,0,0,0.75);
+  -moz-box-shadow: 1px 0px 6px 0px rgba(0,0,0,0.75);
+}
+.cont-nav {
+  margin-left: 20%;
+  position: sticky;
+  top: 0;
+  background: white;
+  width: 80%;
+  height: 60px;
+  transition: 0.5s all ease-in-out;
+  box-shadow: 0px 1px 5px 0px rgba(0,0,0,0.75);
+  -webkit-box-shadow: 0px 1px 5px 0px rgba(0,0,0,0.75);
+  -moz-box-shadow: 0px 1px 5px 0px rgba(0,0,0,0.75);
+  z-index: 1;
+}
+.cont-nav-active {
+  margin-left: 5%;
+  position: sticky;
+  background: white;
+  top: 0;
+  width: 95%;
+  height: 60px;
+  box-shadow: 0px 1px 5px 0px rgba(0,0,0,0.75);
+  -webkit-box-shadow: 0px 1px 5px 0px rgba(0,0,0,0.75);
+  -moz-box-shadow: 0px 1px 5px 0px rgba(0,0,0,0.75);
+  transition: 0.5s all ease-in-out;
+  z-index: 1;
+}
+
+.cont-main {
+  position: relative;
+  margin-left: 20%;
+  transition: 0.5s all ease-in-out;
+  z-index: -1;
+}
+.cont-main-active {
+  position: relative;
+  margin-left: 5%;
+  transition: 0.5s all ease-in-out;
+  z-index: -1;
+}
