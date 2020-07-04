@@ -1,12 +1,13 @@
-import React, { useState } from "react";
-import "./NewProduct.css";
-import { useDispatch } from "react-redux";
+import React, { useState, useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
-import { guardarProductoAction } from "../../actions/ProductosAction";
+import { editarProductoAction } from "../../actions/ProductosAction";
 
-const NewProduct = () => {
+const EditProduct = () => {
   const dispatch = useDispatch();
   const history = useHistory();
+  const productoeditar = useSelector((state) => state.productos.productoeditar);
+  
 
   const [producto, setProducto] = useState({
     nombre: "",
@@ -14,7 +15,7 @@ const NewProduct = () => {
     precio: 0,
   });
   const [image, setImage] = useState({ preimage: null, name: "" });
-  const [file, setFile] = useState(null)
+  const [file, setFile] = useState(null);
   const [error, setError] = useState({
     nombre: false,
     stock: false,
@@ -27,8 +28,14 @@ const NewProduct = () => {
     stock: false,
     precio: false,
   });
-  const { nombre, stock, precio } = producto;
+  useEffect(() => {
+    setProducto(productoeditar);
+    setImage({ preimage: productoeditar.imageURL, name: "" });
+  }, [productoeditar]);
+  const { nombre, stock, precio, _id } = producto;
   const { preimage } = image;
+  if (!producto) return null;
+  if (!image) return null;
   //onchanges
   const onchange = (e) => {
     setProducto({ ...producto, [e.target.name]: e.target.value });
@@ -58,8 +65,8 @@ const NewProduct = () => {
       preimage: URL.createObjectURL(event.target.files[0]),
       name: event.target.value,
     });
-    setFile(event.target.files[0])
-    console.log(file)
+    setFile(event.target.files[0]);
+    console.log(file);
   };
 
   //onBlur
@@ -101,24 +108,27 @@ const NewProduct = () => {
       return;
     }
     setError({ ...error, error: false });
-    
+
     //save
-    const imageURL = file
-  
-    dispatch(guardarProductoAction({
-      nombre,
-      stock,
-      precio,
-      imageURL,
-    }))
-    history.push("/")
+    const imageURL = file;
+
+    dispatch(
+      editarProductoAction({
+        _id,
+        nombre,
+        stock,
+        precio,
+        imageURL,
+      })
+    );
+    history.push("/");
   };
 
   return (
     <div className="container  ">
       <div className="row justify-content-center mt-5">
         <div className="col-md-10 col-sm-12 mx-4 text-center  border">
-          <h2 className="text-center py-2">Nuevo Producto</h2>
+          <h2 className="text-center py-2">Editar Producto</h2>
           <form onSubmit={submitProducto}>
             <div className="form-row pt-4">
               <div className="col-md-4 mb-3">
@@ -126,6 +136,7 @@ const NewProduct = () => {
                 <input
                   name="nombre"
                   type="text"
+                  defaultValue={nombre}
                   className={
                     error.nombre
                       ? "form-control is-invalid"
@@ -156,7 +167,7 @@ const NewProduct = () => {
                   }
                   id="input-stock"
                   type="number"
-                  defaultValue={stock}
+                  value={stock}
                   onBlur={blurStock}
                   onChange={onChangeStock}
                 ></input>
@@ -180,7 +191,7 @@ const NewProduct = () => {
                   }
                   onBlur={blurPrecio}
                   id="input-precio"
-                  defaultValue={precio}
+                  value={precio}
                   type="number"
                   onChange={onChangePrecio}
                 ></input>
@@ -220,7 +231,11 @@ const NewProduct = () => {
             <button className="btn btn-primary my-4 align-center" type="submit">
               Guardar
             </button>
-            {error.error ? <div ><p className="text-danger">Error, formulario incompleto</p></div> : null}
+            {error.error ? (
+              <div>
+                <p className="text-danger">Error, formulario incompleto</p>
+              </div>
+            ) : null}
           </form>
         </div>
       </div>
@@ -228,4 +243,4 @@ const NewProduct = () => {
   );
 };
 
-export default NewProduct;
+export default EditProduct;

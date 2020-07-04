@@ -1,12 +1,13 @@
 import React, { useEffect } from "react";
 import { obtenerProductosAction } from "../../actions/ProductosAction";
 import { useDispatch, useSelector } from "react-redux";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import DataTable from "./components/datatable/DataTable"
 
 const Listado = () => {
   const dispatch = useDispatch();
+  
   const productos = useSelector((state) => state.productos.productos);
-  console.log(productos);
+
 
   useEffect(() => {
     dispatch(obtenerProductosAction());
@@ -41,30 +42,7 @@ const Listado = () => {
             </thead>
             <tbody>
               {productos.map((producto) => (
-                <tr key={producto._id}>
-                  <td>
-                    <img
-                      src={producto.imageURL}
-                      alt="i"
-                      style={{ width: "50px", height: "50px" }}
-                    ></img>
-                  </td>
-                  <td>{producto.nombre}</td>
-                  <td>{producto.estatus}</td>
-                  <td>{producto.stock}</td>
-                  <td>
-                    <span>$</span>
-                    {producto.precio}
-                  </td>
-                  <td>
-                    <button className="btn btn-primary rounded-circle mx-1" title="Editar">
-                      <FontAwesomeIcon icon="edit" />
-                    </button>
-                    <button className="btn btn-danger rounded-circle mx-1" title="Eliminar">
-                      <FontAwesomeIcon style={{color: "white"}} icon="trash-alt" />
-                    </button>
-                  </td>
-                </tr>
+                  <DataTable key={producto._id} producto={producto} />
               ))}
             </tbody>
           </table>
